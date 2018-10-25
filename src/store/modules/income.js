@@ -13,12 +13,24 @@ const state = {
 const mutations = {
     create(state, data) {
         state.profits.push(data);
+    },
+
+    update(state, data) {
+        state.profits[data.index] = {
+            date: data.date,
+            sum: data.sum,
+            category: data.category
+        }
     }
 };
 
 const actions = {
     createProfit({commit}, profitData) {
         commit('create', profitData);
+    },
+
+    updateProfit({commit}, newProfitData) {
+        commit('update', newProfitData);
     }
 };
 

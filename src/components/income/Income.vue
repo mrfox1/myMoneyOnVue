@@ -1,7 +1,7 @@
 <template>
     <div class="body">
         <div class="card-columns">
-            <app-profit v-for="profit in profits" :key="profit.id" :profit="profit"></app-profit>
+            <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
         <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
             <h3>Add new Profit</h3>
@@ -46,6 +46,7 @@
         computed: {
             profits() {
                 return this.$store.getters.getProfits;
+                console.log(this.$store.getters.getProfits)
             }
         }, 
         methods: {
