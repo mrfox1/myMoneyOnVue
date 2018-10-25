@@ -6,10 +6,10 @@
                 <router-link to="/">Home</router-link>
             </li>
             <li>
-                <a href="#">Income</a>
+                <router-link to="/income">Income</router-link>
             </li>
             <li>
-                 <a href="#">Costs</a>
+                 <router-link to="/costs">Costs</router-link>
             </li>
         </ul>
     </div>
@@ -67,7 +67,7 @@
 
   li a {
     text-decoration: none;
-    color: hsl(0, 20%, 65%);
+    color: hsl(0, 16%, 37%);
     font-size: 1.7em;
   }
 
