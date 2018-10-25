@@ -1,16 +1,13 @@
 <template>
-     <div class="col-sm-5 col-md-3">
-        <div class="card">
-            <div class="card-body title">
-                <h3 class="card-title">
-                    Profit
-                </h3>
-            </div>
-            <div class="card-text">
-                <p>Date: 2018-10-25</p>
-                <p>Sum: 11</p>
-                <p>Category: Salary</p>
-            </div>
+    <div class="card col-sm-12">
+        <div class="card-body text-center title">
+            <h3 class="card-title">
+                Profit: {{ profit.sum }} 
+            </h3>
+        </div>
+        <div class="card-text">
+            <p>Date: {{ profit.date }}</p>
+            <p>Category: {{ profit.category }}</p>
         </div>
     </div>
 </template>
@@ -24,7 +21,7 @@
 <style scoped>
     .card {
         padding: 20px;
-        margin: 20px;
+        margin: 10px;
     }
 
     .title {

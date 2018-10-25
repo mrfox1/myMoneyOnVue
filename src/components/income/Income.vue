@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <app-profit></app-profit>
-        <form v-if="formVisible" id="formProfit">
+    <div class="body">
+        <div class="card-columns">
+            <app-profit v-for="profit in profits" :key="profit.id" :profit="profit"></app-profit>
+        </div>
+        <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
             <h3>Add new Profit</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
@@ -41,14 +43,39 @@
         components: {
             appProfit: Profit
         },
+        computed: {
+            profits() {
+                return this.$store.getters.getProfits;
+            }
+        }, 
         methods: {
-
+            sendData() {
+                this.$store.dispatch('createProfit', {
+                    date: this.date,
+                    sum: this.sum,
+                    category: this.category
+                });
+                this.sum = null;
+                this.category = null;
+                this.formVisible = false;
+            }
         }
     }
 </script>
 
 <style scoped>
+    .body {
+        padding: 20px;
+    }
+
     #formProfit {
+        text-align: center;
         padding-bottom: 20px;
+    }
+
+    .form-control {
+        text-align: center;
+        width: 40%;
+        margin-left: 30%;
     }
 </style>
