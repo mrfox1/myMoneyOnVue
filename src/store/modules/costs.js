@@ -12,11 +12,15 @@ const state = {
 };
 
 const mutations = {
-    
+    create(state, data) {
+        state.costs.push(data);
+    }
 };
 
 const actions = {
-    
+    createCost({commit}, costData) {
+        commit('create', costData);
+    }
 };
 
 const getters = {
