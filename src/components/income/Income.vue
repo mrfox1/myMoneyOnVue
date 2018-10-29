@@ -1,5 +1,6 @@
 <template>
     <div class="body">
+        <p>Sum of all profits: {{ profitsSum }}</p>
         <div class="card-columns">
             <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
@@ -40,6 +41,9 @@
                 editDateVisible: false
             };
         }, 
+        created() {
+            this.$store.dispatch('sumOfProfits');
+        },
         components: {
             appProfit: Profit
         },
@@ -47,7 +51,10 @@
             profits() {
                 return this.$store.getters.getProfits;
                 console.log(this.$store.getters.getProfits)
-            }
+            }, 
+            profitsSum() {
+                return this.$store.getters.getSum;
+            }   
         }, 
         methods: {
             sendData() {

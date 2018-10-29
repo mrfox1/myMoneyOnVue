@@ -7,15 +7,35 @@
             <h3 class="card-title" v-if="!editProfitVisible">
                 Profit: {{ profit.sum }} 
             </h3>
-            <input type="number" class="form-control" placeholder="Edit sum of profit" v-if="editProfitVisible" v-model="profitData.sum">
+            <input 
+                type="number" 
+                class="form-control" 
+                placeholder="Edit sum of profit" 
+                v-if="editProfitVisible" 
+                v-model="profitData.sum" 
+                v-on:change="updateProfitData"
+            >
         </div>
         <div class="card-text">
             <p v-if="!editProfitVisible">Date: {{ profit.date }}</p>
-            <input type="date" class="form-control" placeholder="Edit date" v-if="editProfitVisible" v-model="profitData.date">
+            <input 
+                type="date" 
+                class="form-control" 
+                placeholder="Edit date" 
+                v-if="editProfitVisible" 
+                v-model="profitData.date" 
+                v-on:change="updateProfitData"
+            >
             <p v-if="!editProfitVisible">Category: {{ profit.category }}</p>
-            <input type="text" class="form-control" placeholder="Edit category of profit" v-if="editProfitVisible" v-model="profitData.category">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Edit category of profit" 
+                v-if="editProfitVisible" 
+                v-model="profitData.category" 
+                v-on:change="updateProfitData"
+            >
         </div>
-        <button v-if="editProfitVisible" v-on:click.self="updateProfitData">Update Profit data</button>
     </div>
 </template>
 
@@ -46,6 +66,10 @@
     .card {
         padding: 20px;
         margin: 10px;
+    }
+
+    .card:hover {
+        background-color: rgb(240, 240, 240)
     }
 
     .title {
