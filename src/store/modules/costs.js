@@ -14,13 +14,26 @@ const state = {
 const mutations = {
     create(state, data) {
         state.costs.push(data);
+    },
+
+    update(state, data) {
+        state.profits[data.index] = {
+            date: data.date,
+            sum: data.sum,
+            category: data.category
+        }
     }
 };
 
 const actions = {
     createCost({commit}, costData) {
         commit('create', costData);
-    }
+    },
+
+    updateCost({commit}, newCostData) {
+        commit('update', newCostData);
+        //store.dispatch('sumOfProfits');
+    },
 };
 
 const getters = {
