@@ -1,9 +1,10 @@
 <template>
     <div class="costs">
         <app-cost 
-            v-for="cost in costs" 
+            v-for="(cost, index) in costs" 
             :key="cost.id"
-            v-bind:cost="cost">
+            v-bind:cost="cost"
+            v-bind:index="index">
         </app-cost>
          <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
             <h3>Add new Profit</h3>
