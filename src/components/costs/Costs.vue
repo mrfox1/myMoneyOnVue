@@ -1,13 +1,15 @@
 <template>
     <div class="costs">
-        <app-cost 
-            v-for="(cost, index) in costs" 
-            :key="cost.id"
-            v-bind:cost="cost"
-            v-bind:index="index">
-        </app-cost>
-         <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
-            <h3>Add new Profit</h3>
+        <div class="cost-records">
+            <app-cost
+                v-for="(cost, index) in costs"
+                :key="cost.id"
+                v-bind:cost="cost"
+                v-bind:index="index">
+            </app-cost>
+        </div>
+         <form v-if="formVisible" id="formProfit">
+            <h3>Add new Cost</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
                 <br>
@@ -15,15 +17,15 @@
             </h4>
             <input type="date" class="form-control" placeholder="Edit date" v-if="editDateVisible" v-model="date">
             <div class="form-group">
-                <input type="number" class="form-control" placeholder="Enter sum of profit" v-model="sum">
+                <input type="number" class="form-control" placeholder="Enter sum of cost" v-model="sum">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter category of profit" v-model="category">
+                <input type="text" class="form-control" placeholder="Enter category of cost" v-model="category">
             </div>
             <button type="button" class="btn" @click="sendData">Submit</button>
         </form>
         <button class="btn" @click="formVisible = !formVisible">
-            Add Profit
+            Add Cost
         </button>
     </div>
 </template>
@@ -76,5 +78,10 @@
         text-align: center;
         width: 40%;
         margin-left: 30%;
+    }
+
+    .cost-records {
+        display: flex;
+        justify-content: space-between;
     }
 </style>

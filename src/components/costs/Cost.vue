@@ -58,13 +58,8 @@
 </script>
 
 <style scoped>
-    .cost {
-       padding: 10px;
-    }
-
-    .card-body {
-        height: 25px;
-    }
+    .cost { padding: 10px; }
+    .card-body { height: 25px; }
 </style>
 
 
