@@ -17,7 +17,7 @@ const mutations = {
     },
 
     update(state, data) {
-        state.profits[data.index] = {
+        state.costs[data.index] = {
             date: data.date,
             sum: data.sum,
             category: data.category

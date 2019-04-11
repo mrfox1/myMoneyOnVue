@@ -50,12 +50,11 @@
         computed: {
             profits() {
                 return this.$store.getters.getProfits;
-                console.log(this.$store.getters.getProfits)
-            }, 
+            },
             profitsSum() {
                 return this.$store.getters.getSum;
-            }   
-        }, 
+            }
+        },
         methods: {
             sendData() {
                 this.$store.dispatch('createProfit', {
