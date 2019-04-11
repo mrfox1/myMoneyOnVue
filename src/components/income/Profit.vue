@@ -1,5 +1,7 @@
+// single income like salary
+//
 <template>
-    <div class="card col-sm-12"  v-on:click.self="editProfitVisible = true" >
+    <div class="card col-sm-12">
         <div class="card-body text-center title">
             <button type="button" class="close" aria-label="Close" v-if="editProfitVisible" >
                 <span aria-hidden="true" @click.self="editProfitVisible = false">&times;</span>
@@ -35,6 +37,7 @@
                 v-model="profitData.category" 
                 v-on:change="updateProfitData"
             >
+            <a href="#" class="card-link" v-on:click.self="editProfitVisible = true">Edit</a>
         </div>
     </div>
 </template>
