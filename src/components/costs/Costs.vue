@@ -1,5 +1,6 @@
 <template>
     <div class="costs">
+        <p>Sum of all profits: {{ profitsSum }}</p>
         <div class="cost-records">
             <app-cost
                 v-for="(cost, index) in costs"
@@ -45,12 +46,21 @@
                 editDateVisible: false
             };
         },
+
+        created() {
+            this.$store.dispatch('sumOfCosts');
+        },
+
         components: {
             appCost: Cost
-        }, 
+        },
+
         computed: {
             costs() {
                 return this.$store.getters.getCosts;
+            },
+            profitsSum() {
+                return this.$store.getters.getCostsSum;
             }
         },
         methods: {
