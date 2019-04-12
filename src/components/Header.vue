@@ -1,6 +1,6 @@
 <template>
 <header id="header">
-    <div class="left">
+    <nav class="left">
         <ul>
             <li>
                 <router-link to="/">Home</router-link>
@@ -11,8 +11,17 @@
             <li>
                  <router-link to="/costs">Costs</router-link>
             </li>
+            <li>
+                Your income: {{ profitsSum }}
+            </li>
+            <li>
+                Your costs: {{ costsSum }}
+            </li>
+            <li>
+                The balance is: {{ getBalance }}
+            </li>
         </ul>
-    </div>
+    </nav>
     <nav>
         <ul>
             <li>
@@ -28,7 +37,22 @@
 
 <script>
     export default {
-    
+        created() {
+            this.$store.dispatch('sumOfProfits');
+            this.$store.dispatch('sumOfCosts');
+        },
+
+        computed: {
+            profitsSum() {
+                return this.$store.getters.getSum;
+            },
+            costsSum() {
+                return this.$store.getters.getCostsSum;
+            },
+            getBalance() {
+               return this.$store.getters.getSum - this.$store.getters.getCostsSum;
+            }
+        }
     }
 </script>
 
