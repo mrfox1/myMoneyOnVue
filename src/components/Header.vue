@@ -1,6 +1,6 @@
 <template>
 <header id="header">
-    <div class="left">
+    <nav class="left">
         <ul>
             <li>
                 <router-link to="/">Home</router-link>
@@ -17,8 +17,11 @@
             <li>
                 Your costs: {{ costsSum }}
             </li>
+            <li>
+                The balance is: {{ getBalance }}
+            </li>
         </ul>
-    </div>
+    </nav>
     <nav>
         <ul>
             <li>
@@ -45,6 +48,9 @@
             },
             costsSum() {
                 return this.$store.getters.getCostsSum;
+            },
+            getBalance() {
+               return this.$store.getters.getSum - this.$store.getters.getCostsSum;
             }
         }
     }
