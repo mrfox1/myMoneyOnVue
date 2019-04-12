@@ -1,0 +1,97 @@
+<template>
+    <div class="costs">
+        <p>Sum of all profits: {{ profitsSum }}</p>
+        <div class="cost-records">
+            <app-cost
+                v-for="(cost, index) in costs"
+                :key="cost.id"
+                v-bind:cost="cost"
+                v-bind:index="index">
+            </app-cost>
+        </div>
+         <form v-if="formVisible" id="formProfit">
+            <h3>Add new Cost</h3>
+            <h4 @click="editDateVisible = !editDateVisible">
+                Today: {{ date }}
+                <br>
+                <small>Click for edit</small>
+            </h4>
+            <input type="date" class="form-control" placeholder="Edit date" v-if="editDateVisible" v-model="date">
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Enter sum of cost" v-model="sum">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter category of cost" v-model="category">
+            </div>
+            <button type="button" class="btn" @click="sendData">Submit</button>
+        </form>
+        <button class="btn" @click="formVisible = !formVisible">
+            Add Cost
+        </button>
+    </div>
+</template>
+
+<script>
+    import Cost from './Cost.vue';
+
+    export default {
+        data() {
+            const d = new Date();
+            const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
+            return {
+                date: date,
+                sum: null,
+                category: null,
+                formVisible: false,
+                editDateVisible: false
+            };
+        },
+
+        created() {
+            this.$store.dispatch('sumOfCosts');
+        },
+
+        components: {
+            appCost: Cost
+        },
+
+        computed: {
+            costs() {
+                return this.$store.getters.getCosts;
+            },
+            profitsSum() {
+                return this.$store.getters.getCostsSum;
+            }
+        },
+        methods: {
+            sendData() {
+                this.$store.dispatch('createCost', {
+                    date: this.date,
+                    sum: this.sum,
+                    category: this.category
+                });
+                this.sum = null;
+                this.category = null;
+                this.formVisible = false;
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    #formProfit {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .form-control {
+        text-align: center;
+        width: 40%;
+        margin-left: 30%;
+    }
+
+    .cost-records {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
