@@ -11,6 +11,12 @@
             <li>
                  <router-link to="/costs">Costs</router-link>
             </li>
+            <li>
+                Your income: {{ profitsSum }}
+            </li>
+            <li>
+                Your costs: {{ costsSum }}
+            </li>
         </ul>
     </div>
     <nav>
@@ -28,7 +34,19 @@
 
 <script>
     export default {
-    
+        created() {
+            this.$store.dispatch('sumOfProfits');
+            this.$store.dispatch('sumOfCosts');
+        },
+
+        computed: {
+            profitsSum() {
+                return this.$store.getters.getSum;
+            },
+            costsSum() {
+                return this.$store.getters.getCostsSum;
+            }
+        }
     }
 </script>
 
