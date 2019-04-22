@@ -43,6 +43,7 @@
         components: {
             appProfit: Profit
         },
+
         computed: {
             profits() {
                 return this.$store.getters.getProfits;
