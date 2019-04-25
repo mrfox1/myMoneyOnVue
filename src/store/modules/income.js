@@ -1,20 +1,16 @@
-//test data
-//add loading from server in future
-
 import store from '../store'
+import globalAxios from 'axios';
 
 const state = {
     sumOfProfits: null,
-    profits: [
-        {date: '2018-10-23', sum: 400, category: 'salary'},
-        {date: '2018-10-24', sum: 500, category: 'salary'},
-        {date: '2018-10-24', sum: 500, category: 'salary'},
-        {date: '2018-10-24', sum: 500, category: 'salary'},
-        {date: '2018-10-24', sum: 500, category: 'salary'}
-    ]
+    profits: null
 };
 
 const mutations = {
+    loadProfits(state, data) {
+      state.profits = data;
+    },
+
     create(state, data) {
         state.profits.push(data);
     },
@@ -29,7 +25,7 @@ const mutations = {
 
     updateSumOfProfits(state) {
         const sum = state.profits.reduce((accumulator, currentValue) => {
-            if (currentValue.isInteger) {
+            if (currentValue.sum.isInteger) {
                 return accumulator + currentValue.sum;
             } else {
                 return accumulator + parseInt(currentValue.sum, 10);
@@ -42,16 +38,36 @@ const mutations = {
 const actions = {
     createProfit({commit}, profitData) {
         commit('create', profitData);
-        store.dispatch('sumOfProfits')
+        store.dispatch('sumOfProfits');
+        globalAxios.post('/incomes', profitData)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => console.log(error));
     },
 
     updateProfit({commit}, newProfitData) {
         commit('update', newProfitData);
         store.dispatch('sumOfProfits');
+        globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category: newProfitData.category, date: newProfitData.date })
+            .then(res => {
+                console.log(res);
+                store.dispatch('sumOfProfits');
+            })
+            .catch(error => console.log(error));
     },
 
     sumOfProfits({commit}) {
         commit('updateSumOfProfits');
+    },
+
+    getIncomesFromApi({commit}) {
+        globalAxios.get('/incomes')
+            .then(res => {
+                commit('loadProfits', res.data);
+                store.dispatch('sumOfProfits');
+            })
+            .catch(error => console.log(error));
     }
 };
 
