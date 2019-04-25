@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import globalAxios from 'axios';
 
 import income from './modules/income';
 import costs from './modules/costs';

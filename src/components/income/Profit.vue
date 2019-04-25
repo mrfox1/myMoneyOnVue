@@ -55,6 +55,7 @@
             updateProfitData() {
                 this.editProfitVisible = false;
                 this.$store.dispatch('updateProfit', {
+                    id: this.profitData.id,
                     index: this.index,
                     date: this.profitData.date,
                     sum: this.profitData.sum,

@@ -37,8 +37,8 @@
 
 <script>
     export default {
-        created() {
-            this.$store.dispatch('sumOfProfits');
+        beforeCreate() {
+            this.$store.dispatch('getIncomesFromApi');
             this.$store.dispatch('sumOfCosts');
         },
 
