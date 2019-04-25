@@ -1,6 +1,3 @@
-//test data
-//add loading from server in future
-
 import store from '../store'
 import globalAxios from 'axios';
 
