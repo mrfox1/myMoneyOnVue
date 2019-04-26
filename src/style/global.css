@@ -18,3 +18,18 @@ body {
     overflow-x: hidden;
 }
 
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+/*---------------------------------------*/
+/* REUSABLE ELEMENTS */
+/*---------------------------------------*/
+
+.f-bold { font-weight: bold; }
