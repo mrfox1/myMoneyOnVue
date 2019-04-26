@@ -1,43 +1,42 @@
 <template>
-    <div class="cost col-lg-2">
-        <div class="card cost-record">
-            <div class="card-body text-center">
-                <button type="button" class="close" aria-label="Close" v-if="editCostVisible" >
-                <span aria-hidden="true" @click.self="editCostVisible = false">&times;</span>
-                </button>
-                <p class="card-title" v-if="!editCostVisible">
-                    Cost: {{ cost.sum }}
-                </p>
-                <input
-                        type="number"
-                        class="form-control"
-                        placeholder="Edit sum of this cost"
-                        v-if="editCostVisible"
-                        v-model="costData.sum"
-                        v-on:change="updateCostData"
-                >
-            </div>
-            <div class="card-text text-center">
-                 <p v-if="!editCostVisible">Date: {{ cost.date }}</p>
-                <input 
-                    type="date" 
-                    class="form-control" 
+    <div class="item editable">
+        <button type="button" class="close-btn close-edit-form" v-if="editCostVisible" >
+            <span @click.self="editCostVisible = false">&times;</span>
+        </button>
+        <div class="item-body title expense-title">
+            <h3 class="item-title" v-if="!editCostVisible">
+                Cost: {{ cost.sum }}
+            </h3>
+            <input
+                    type="number"
+                    class="form-input expense-edit-input"
+                    placeholder="Edit sum of this cost"
+                    v-if="editCostVisible"
+                    v-model="costData.sum"
+                    v-on:change="updateCostData"
+            >
+        </div>
+
+        <div class="item-data">
+            <p class="item-text" v-if="!editCostVisible">Date: {{ cost.date }}</p>
+            <input
+                    type="date"
+                    class="form-input expense-edit-input"
                     placeholder="Edit date" 
                     v-if="editCostVisible" 
                     v-model="costData.date" 
                     v-on:change="updateCostData"
-                >
-                <p v-if="!editCostVisible">Category: {{ cost.category }}</p>
-                <input 
+            >
+            <p class="item-text" v-if="!editCostVisible">Category: {{ cost.category }}</p>
+            <input
                     type="text" 
-                    class="form-control" 
+                    class="form-input "
                     placeholder="Edit category of cost" 
                     v-if="editCostVisible" 
                     v-model="costData.category" 
                     v-on:change="updateCostData"
-                >
-                <a href="#" class="card-link" v-on:click.self="editCostVisible = true">Edit</a>
-            </div>
+            >
+            <a href="#" class="btn edit-btn edit-expense-btn" v-on:click.self="editCostVisible = true">Edit</a>
         </div>
     </div>
 </template>
@@ -66,9 +65,12 @@
 </script>
 
 <style scoped>
-    .cost { padding: 10px; }
-    .card-body { height: 25px; }
-    .cost-record { height: 200px;}
+    .expense-title {
+        color: #c0392b;
+        border-bottom-color: #c0392b;
+    }
+
+    .expense-edit-input:focus { outline-color: #c0392b; }
 </style>
 
 

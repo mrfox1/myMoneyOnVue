@@ -1,38 +1,36 @@
 <template>
-<header id="header">
-    <nav class="left">
-        <ul>
-            <li>
-                <router-link to="/">Home</router-link>
-            </li>
-            <li>
-                <router-link to="/income">Income</router-link>
-            </li>
-            <li>
-                 <router-link to="/costs">Costs</router-link>
-            </li>
-            <li>
-                Your income: {{ profitsSum }}
-            </li>
-            <li>
-                Your costs: {{ costsSum }}
-            </li>
-            <li>
-                The balance is: {{ getBalance }}
-            </li>
-        </ul>
-    </nav>
-    <nav>
-        <ul>
-            <li>
-                <a href="#">Sign In</a>
-            </li>
-            <li>
-                <a href="#">Sign Out</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+    <header class="row" id="header">
+        <nav class="f-bold">
+            <ul class="menu main-menu">
+                <li class="menu-item">
+                    <router-link to="/" exact>Home</router-link>
+                </li>
+                <li class="menu-item">
+                    <router-link to="/income">Income</router-link>
+                </li>
+                <li class="menu-item">
+                     <router-link to="/costs">Expenses</router-link>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sums">
+            <span class="sum">Your income: {{ profitsSum }}</span>
+            <span class="sum">Your costs: {{ costsSum }}</span>
+            <span class="sum">The balance is: {{ getBalance }}</span>
+        </div>
+
+        <nav>
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="#">Sign In</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">Sign Out</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 </template>
 
 <script>
@@ -58,47 +56,28 @@
 
 <style scoped>
     #header {
-    height: 56px;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(204, 204, 204);
-    padding: 0 20px;
-  }
+        height: 56px;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ecf0f1;
+        padding: 0 20px;
+    }
 
-  .left {
-    font-weight: bold;
-  }
+  nav { height: 100%; }
+  .menu-item { margin: 0 16px; }
 
-  nav {
-    height: 100%;
+  .menu-item a {
+      text-decoration: none;
+      color: #333;
   }
+  .main-menu .menu-item a { font-size: 1.5em; }
+  .menu-item a.router-link-active { border-bottom: 4px solid #27ae60; }
+  .menu-item a:hover { color: #27ae60; }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-  }
-
-  li {
-    margin: 0 16px;
-  }
-
-  li a {
-    text-decoration: none;
-    color: hsl(0, 16%, 37%);
-    font-size: 1.7em;
-  }
-
-  li a:hover,
-  li a:active,
-  li a.router-link-active {
-    color: #604a61;
-  }
+  .sum { padding: 0 5px; }
+  .sum:first-child { border-right: 1px solid #27ae60; }
+  .sum:last-child { border-left: 1px solid #27ae60; }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="costs">
-        <div class="cost-records">
+    <div class="row">
+        <div class="items-container"">
             <app-cost
                 v-for="(cost, index) in costs"
                 :key="cost.id"
