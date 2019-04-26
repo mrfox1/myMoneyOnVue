@@ -1,43 +1,46 @@
-// single income like salary
-//
 <template>
-    <div class="card col-sm-12">
-        <div class="card-body text-center title">
-            <button type="button" class="close" aria-label="Close" v-if="editProfitVisible" >
-                <span aria-hidden="true" @click.self="editProfitVisible = false">&times;</span>
-            </button>
-            <h3 class="card-title" v-if="!editProfitVisible">
+    <div class="item editable">
+        <button type="button" class="close-btn close-edit-form" v-if="editProfitVisible" >
+            <span @click.self="editProfitVisible = false">&times;</span>
+        </button>
+        <div class="item-body title">
+            <h3 class="item-title" v-if="!editProfitVisible">
                 Profit: {{ profit.sum }} 
             </h3>
             <input 
                 type="number" 
-                class="form-control" 
+                class="form-input"
                 placeholder="Edit sum of profit" 
                 v-if="editProfitVisible" 
                 v-model="profitData.sum" 
                 v-on:change="updateProfitData"
             >
         </div>
-        <div class="card-text">
-            <p v-if="!editProfitVisible">Date: {{ profit.date }}</p>
+
+        <div class="item-data">
+            <p class="item-text" v-if="!editProfitVisible">Date: {{ profit.date }}</p>
             <input 
                 type="date" 
-                class="form-control" 
+                class="form-input"
                 placeholder="Edit date" 
                 v-if="editProfitVisible" 
                 v-model="profitData.date" 
                 v-on:change="updateProfitData"
             >
-            <p v-if="!editProfitVisible">Category: {{ profit.category }}</p>
+            <p class="item-text" v-if="!editProfitVisible">Category: {{ profit.category }}</p>
             <input 
                 type="text" 
-                class="form-control" 
+                class="form-input"
                 placeholder="Edit category of profit" 
                 v-if="editProfitVisible" 
                 v-model="profitData.category" 
                 v-on:change="updateProfitData"
             >
-            <a href="#" class="card-link" v-on:click.self="editProfitVisible = true">Edit</a>
+            <a href="#"
+               class="btn edit-btn"
+               v-on:click.self="editProfitVisible = true"
+               v-if="!editProfitVisible"
+            >Edit</a>
         </div>
     </div>
 </template>
@@ -67,18 +70,4 @@
 </script>
 
 <style scoped>
-    .card {
-        padding: 20px;
-        margin: 10px;
-    }
-
-    .card:hover {
-        background-color: rgb(240, 240, 240)
-    }
-
-    .title {
-        background-color: #91af72;
-        padding: 10px;
-        border-bottom: 1px solid #bbb;
-    }
 </style>

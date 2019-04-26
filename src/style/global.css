@@ -1,3 +1,5 @@
+@import "_item.css";
+
 /*---------------------------------------*/
 /* BASIC SETUP */
 /*---------------------------------------*/
@@ -18,6 +20,10 @@ body {
     overflow-x: hidden;
 }
 
+/*---------------------------------------*/
+/* REUSABLE ELEMENTS */
+/*---------------------------------------*/
+
 .menu {
     list-style: none;
     margin: 0;
@@ -27,9 +33,57 @@ body {
     flex-flow: row;
     align-items: center;
 }
-
-/*---------------------------------------*/
-/* REUSABLE ELEMENTS */
-/*---------------------------------------*/
+/* this class for items with "dynamic" edit for close button */
+.editable {position: relative; }
 
 .f-bold { font-weight: bold; }
+
+.row {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* buttons */
+
+.btn {
+    display: inline-block;
+    background-color: #fff;
+    color: #222;
+    border: 1px solid #222;
+    padding: 10px 30px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 5px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.edit-btn:hover {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.close-btn {
+    background-color: #c0392b;
+    width: 24px;
+    height: 24px;
+    border: none;
+    color: #fff;
+}
+
+.close-edit-form {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* inputs */
+
+.form-input {
+    width: 100%;
+    height: 38px;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.form-input:focus { outline-color: #27ae60; }

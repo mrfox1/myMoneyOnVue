@@ -1,5 +1,5 @@
 <template>
-    <header id="header">
+    <header class="row" id="header">
         <nav class="f-bold">
             <ul class="menu main-menu">
                 <li class="menu-item">
