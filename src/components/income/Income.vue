@@ -1,6 +1,6 @@
 <template>
-    <div class="body">
-        <div class="card-columns">
+    <div class="row">
+        <div class="items-container">
             <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
         <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
@@ -65,10 +65,6 @@
 </script>
 
 <style scoped>
-    .body {
-        padding: 20px;
-    }
-
     #formProfit {
         text-align: center;
         padding-bottom: 20px;

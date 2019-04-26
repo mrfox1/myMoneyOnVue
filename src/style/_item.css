@@ -1,0 +1,28 @@
+/*TODO: create variant of items-conteiner with css grid*/
+
+.items-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-between;
+    align-items: center;
+}
+
+.item {
+    flex-basis: 25%;
+    padding: 10px;
+    height: 200px;
+}
+
+.title {
+    text-align: center;
+    color: #27ae60;
+    padding: 5px 0;
+    border-bottom: 1px solid #27ae60;
+    margin-bottom: 5px;
+}
+
+.item:hover { background-color: #ecf0f1; }
+.item-body .form-input:first-child { margin-top: 10px; }
+.item-data .form-input:last-child { margin-top: 10px; }
