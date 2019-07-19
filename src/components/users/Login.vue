@@ -1,12 +1,17 @@
 <template>
-    <div id="login-modal" v-if="visible === true">
+    <div id="login-modal" v-if="isVisible === true">
+        <div class="modal-header">
 
+        </div>
+        <div class="modal-body"></div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['visible']
+        props: {
+            isVisible: Boolean
+        }
     }
 </script>
 
