@@ -31,7 +31,7 @@
             </ul>
         </nav>
 
-        <login-modal v-bind:isVisible="modalVisible"></login-modal>
+        <login-modal v-bind:isVisible="modalVisible" v-on:closeModal="modalVisible = false"></login-modal>
     </header>
 </template>
 
