@@ -3,7 +3,7 @@
         <div class="items-container">
             <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
-        <form v-if="formVisible" id="formProfit" class="col-xl-4 col-sm-12">
+        <form v-if="formVisible" id="formProfit">
             <h3>Add new Profit</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}

@@ -6,7 +6,36 @@
                 <span>&times;</span>
             </button>
         </div>
-        <div class="modal-body"></div>
+
+        <div class="choose-modal-type">
+            <div class="sign-up" :class="{ active: activeSignUp }" @click="signUpIsActive">
+                <span>Sign Up</span>
+            </div>
+            <div class="sign-in" :class="{ active: activeSignIn }" @click="signInIsActive">
+                <span>Sign In</span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <form v-if="activeSignUp" id="sign-up-form">
+                <h3>Sign Up</h3>
+
+                <button type="button" class="btn">Submit</button>
+            </form>
+
+            <form v-if="activeSignIn" id="sign-in-form">
+                <h3>Please Sign In</h3>
+                <div class="email-field">
+                    <div><label for="email">Your Email</label></div>
+                    <input type="text" id="email">
+                </div>
+                <div class="password-field">
+                    <div><label for="password">Your Password</label></div>
+                    <input type="text" id="password">
+                </div>
+                <button type="button" class="btn">Sign In!</button>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -14,12 +43,26 @@
     export default {
         data() {
             return {
-                modalName: "Sign Up"
+                modalName: "Sign Up",
+                activeSignUp: true,
+                activeSignIn: false
             }
         },
 
         props: {
             isVisible: Boolean
+        },
+
+        methods: {
+            signUpIsActive() {
+                this.activeSignUp = true;
+                this.activeSignIn = false;
+            },
+
+            signInIsActive() {
+                this.activeSignUp = false;
+                this.activeSignIn = true;
+            }
         }
     }
 </script>
@@ -32,6 +75,7 @@
         width: 400px;
         height: 400px;
         border: 1px solid #555;
+        z-index: 1;
     }
 
     .modal-header {
@@ -67,4 +111,27 @@
         opacity: .5;
     }
     .close span:hover { opacity: .8; }
+
+    .choose-modal-type {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .sign-up,
+    .sign-in {
+        border: 1px solid #555;
+        border-radius: 100px;
+        cursor: pointer;
+        width: 100px;
+        padding: 5px 10px;
+        margin: 10px;
+    }
+    .sign-up { margin-right: 0; }
+
+    .sign-up.active,
+    .sign-in.active {
+        background-color: #27ae60;
+        color: #fff;
+        font-weight: 400;
+    }
 </style>
