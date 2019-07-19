@@ -23,21 +23,35 @@
         <nav>
             <ul class="menu">
                 <li class="menu-item">
-                    <a href="#">Sign In</a>
+                    <a v-on:click="modalVisible = !modalVisible" href="#">Sign In</a>
                 </li>
                 <li class="menu-item">
                     <a href="#">Sign Out</a>
                 </li>
             </ul>
         </nav>
+
+        <login-modal v-bind:visible="modalVisible"></login-modal>
     </header>
 </template>
 
 <script>
+    import LoginModal from './users/Login.vue'
+
     export default {
+        data() {
+            return {
+                modalVisible: false
+            }
+        },
+
         beforeCreate() {
             this.$store.dispatch('getIncomesFromApi');
             this.$store.dispatch('sumOfCosts');
+        },
+
+        components: {
+            loginModal: LoginModal
         },
 
         computed: {

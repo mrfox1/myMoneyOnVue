@@ -10,7 +10,7 @@
 
   export default {
     components: {
-      appHeader: Header
+        appHeader: Header
     }
   }
 </script>
