@@ -17,23 +17,49 @@
         </div>
 
         <div class="modal-body">
-            <form v-if="activeSignUp" id="sign-up-form">
+            <form v-if="activeSignUp" id="sign-up-form" class="user-form">
                 <h3>Sign Up</h3>
-
-                <button type="button" class="btn">Submit</button>
+                <h6>Please fill in this form to create an account!</h6>
+                <div class="field">
+                    <div>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <input type="text" id="name">
+                </div>
+                <div class="field">
+                    <div>
+                        <label for="sign-up-email">Your Email</label>
+                    </div>
+                    <input type="text" id="sign-up-email">
+                </div>
+                <div class="field">
+                    <div>
+                        <label for="sign-up-password">Your Password</label>
+                    </div>
+                    <input type="text" id="sign-up-password">
+                </div>
+                <div class="field">
+                    <div>
+                        <label for="confirm-password">Confirm Password</label>
+                    </div>
+                    <input type="text" id="confirm-password">
+                </div>
+                <button type="button" class="btn submit-btn">Sign In!</button>
             </form>
 
-            <form v-if="activeSignIn" id="sign-in-form">
+            <form v-if="activeSignIn" id="sign-in-form" class="user-form">
                 <h3>Please Sign In</h3>
-                <div class="email-field">
+                <div class="field">
                     <div><label for="email">Your Email</label></div>
                     <input type="text" id="email">
                 </div>
-                <div class="password-field">
-                    <div><label for="password">Your Password</label></div>
+                <div class="field">
+                    <div>
+                        <label for="password">Your Password</label>
+                    </div>
                     <input type="text" id="password">
                 </div>
-                <button type="button" class="btn">Sign In!</button>
+                <button type="button" class="btn submit-btn">Sign In!</button>
             </form>
         </div>
     </div>
@@ -70,10 +96,10 @@
 <style scoped>
     #login-modal {
         position: absolute;
-        top: 30%;
-        left: 30%;
+        top: 25%;
+        left: calc(50% - 200px);
         width: 400px;
-        height: 400px;
+        min-height: 400px;
         border: 1px solid #555;
         z-index: 1;
     }
@@ -125,6 +151,7 @@
         width: 100px;
         padding: 5px 10px;
         margin: 10px;
+        text-align: center;
     }
     .sign-up { margin-right: 0; }
 
@@ -134,4 +161,29 @@
         color: #fff;
         font-weight: 400;
     }
+
+    .user-form {
+        margin-top: 15px;
+        width: 80%;
+        margin-left: 10%;
+    }
+    .user-form h3,
+    .user-form h6 { margin-bottom: 15px; }
+
+    .user-form h3,
+    .user-form h6,
+    .user-form .btn { text-align: center; }
+
+    .field {
+        width: 80%;
+        margin-bottom: 10px;
+        margin-left: 10%;
+    }
+    .field input { width: 100%; }
+
+    .submit-btn {
+        width: 40%;
+        margin: 0 0 15px 30%;
+    }
+    .submit-btn:hover { background-color: #27ae60; }
 </style>
