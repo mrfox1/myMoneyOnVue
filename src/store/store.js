@@ -4,12 +4,14 @@ import globalAxios from 'axios';
 
 import income from './modules/incomes/income';
 import expenses from './modules/expeneses/expenses';
+import user from './modules/users/user';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     income,
-    expenses
+    expenses,
+    user
   }
 });

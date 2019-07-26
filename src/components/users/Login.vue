@@ -24,27 +24,30 @@
                     <div>
                         <label for="name">Your Name</label>
                     </div>
-                    <input type="text" id="name">
+                    <input type="text" id="name" v-model="name">
                 </div>
                 <div class="field">
                     <div>
                         <label for="sign-up-email">Your Email</label>
                     </div>
-                    <input type="text" id="sign-up-email">
+                    <input type="text" id="sign-up-email" v-model="email">
                 </div>
                 <div class="field">
                     <div>
                         <label for="sign-up-password">Your Password</label>
                     </div>
-                    <input type="text" id="sign-up-password">
+                    <input type="text" id="sign-up-password" :class="{ error: confirmError }" v-model="password">
                 </div>
                 <div class="field">
                     <div>
                         <label for="confirm-password">Confirm Password</label>
                     </div>
-                    <input type="text" id="confirm-password">
+                    <input type="text" id="confirm-password"
+                           v-bind:class="{ error: confirmError }"
+                           v-on:input="checkConfirmPassword"
+                           v-model="confirmPassword">
                 </div>
-                <button type="button" class="btn submit-btn">Sign In!</button>
+                <button type="button" class="btn submit-btn" @click="sendRegistration">Sign In!</button>
             </form>
 
             <form v-if="activeSignIn" id="sign-in-form" class="user-form">
@@ -71,7 +74,12 @@
             return {
                 modalName: "Sign Up",
                 activeSignUp: true,
-                activeSignIn: false
+                activeSignIn: false,
+                name: null,
+                email: null,
+                password: null,
+                confirmPassword: null,
+                confirmError: false
             }
         },
 
@@ -88,6 +96,26 @@
             signInIsActive() {
                 this.activeSignUp = false;
                 this.activeSignIn = true;
+            },
+
+            checkConfirmPassword() {
+                if (this.password !== this.confirmPassword) {
+                    this.confirmError = true;
+                } else {
+                    this.confirmError = false;
+                }
+            },
+
+            sendRegistration() {
+                this.$store.dispatch('createUser', {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password
+                });
+                this.name = null;
+                this.email = null;
+                this.password = null;
+                this.confirmPassword = null;
             }
         }
     }
@@ -186,4 +214,8 @@
         margin: 0 0 15px 30%;
     }
     .submit-btn:hover { background-color: #27ae60; }
+
+    .error {
+        border: 1px solid red;
+    }
 </style>
