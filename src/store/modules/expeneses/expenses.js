@@ -1,7 +1,7 @@
 //test data
 //add loading from server in future
 
-import store from '../store'
+import store from '../../store'
 
 const state = {
     sumOfCosts: null,
