@@ -47,22 +47,22 @@
                            v-on:input="checkConfirmPassword"
                            v-model="confirmPassword">
                 </div>
-                <button type="button" class="btn submit-btn" @click="sendRegistration">Sign In!</button>
+                <button type="button" class="btn submit-btn" @click="sendRegistration">Sign Up!</button>
             </form>
 
             <form v-if="activeSignIn" id="sign-in-form" class="user-form">
                 <h3>Please Sign In</h3>
                 <div class="field">
                     <div><label for="email">Your Email</label></div>
-                    <input type="text" id="email">
+                    <input type="text" id="email" v-model="email">
                 </div>
                 <div class="field">
                     <div>
                         <label for="password">Your Password</label>
                     </div>
-                    <input type="text" id="password">
+                    <input type="text" id="password" v-model="password">
                 </div>
-                <button type="button" class="btn submit-btn">Sign In!</button>
+                <button type="button" @click="signIn" class="btn submit-btn">Sign In!</button>
             </form>
         </div>
     </div>
@@ -112,10 +112,15 @@
                     email: this.email,
                     password: this.password
                 });
-                this.name = null;
-                this.email = null;
-                this.password = null;
-                this.confirmPassword = null;
+                this.name = this.email = this.password = this.confirmPassword = "";
+            },
+
+            signIn() {
+                this.$store.dispatch('createSession', {
+                    email: this.email,
+                    password: this.password
+                });
+                this.email = this.password = "";
             }
         }
     }

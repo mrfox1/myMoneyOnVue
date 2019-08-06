@@ -19,6 +19,19 @@ const actions = {
                 console.log(res);
             })
             .catch(error => console.log(error));
+    },
+
+    createSession({commit}, credentials) {
+        globalAxios.post('/users/login', {
+            user: {
+                email: credentials.email,
+                password: credentials.password
+            }})
+            .then(res => {
+                console.log(res.data);
+                commit('saveUser', res.data);
+            })
+            .catch(error => console.log(error));
     }
 };
 
