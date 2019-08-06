@@ -2,12 +2,19 @@ import store from '../../store'
 import globalAxios from 'axios';
 
 const state = {
-    user: {}
+    user: {
+        name: localStorage.getItem('userName') || '',
+        token: localStorage.getItem('token') || ''
+    }
 };
 
 const mutations = {
-    saveUser(state, data) {
-        state.user = data;
+    saveUserData(state, data) {
+        localStorage.setItem("userName", data.name);
+        localStorage.setItem("token", data.token);
+        state.user.name = localStorage.getItem('userName');
+        state.user.token = localStorage.getItem('token');
+        globalAxios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     }
 };
 
@@ -28,15 +35,17 @@ const actions = {
                 password: credentials.password
             }})
             .then(res => {
-                console.log(res.data);
-                commit('saveUser', res.data);
+                console.log(res.data.user);
+                commit('saveUserData', res.data.user);
             })
             .catch(error => console.log(error));
     }
 };
 
 const getters = {
+    getUserData: state => state.user,
 
+    getCurrentUserName: (state, getters) => getters.getUserData.name,
 };
 
 export default {

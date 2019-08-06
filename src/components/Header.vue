@@ -22,8 +22,11 @@
 
         <nav>
             <ul class="menu">
-                <li class="menu-item">
+                <li class="menu-item" v-if="getUserName === ''">
                     <a v-on:click="modalVisible = !modalVisible" href="#">Sign In</a>
+                </li>
+                <li class="menu-item" v-else>
+                    {{ getUserName }}
                 </li>
                 <li class="menu-item">
                     <a href="#">Sign Out</a>
@@ -63,6 +66,9 @@
             },
             getBalance() {
                return this.$store.getters.getSum - this.$store.getters.getCostsSum;
+            },
+            getUserName() {
+                return this.$store.getters.getCurrentUserName;
             }
         }
     }
