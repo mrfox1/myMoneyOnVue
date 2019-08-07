@@ -14,6 +14,13 @@ const mutations = {
         localStorage.setItem("token", data.token);
         state.user.name = localStorage.getItem('userName');
         state.user.token = localStorage.getItem('token');
+    },
+
+    deleteSession(state) {
+        localStorage.removeItem('userName');
+        localStorage.removeItem('token');
+        state.user.name = '';
+        state.user.token = '';
     }
 };
 
@@ -36,6 +43,15 @@ const actions = {
             .then(res => {
                 console.log(res.data.user);
                 commit('saveUserData', res.data.user);
+            })
+            .catch(error => console.log(error));
+    },
+
+    signOut({commit}) {
+        globalAxios.get('/users/logout')
+            .then(res => {
+                commit('deleteSession');
+                console.log(res);
             })
             .catch(error => console.log(error));
     },

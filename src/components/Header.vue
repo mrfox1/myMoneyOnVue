@@ -14,7 +14,7 @@
             </ul>
         </nav>
 
-        <div class="sums">
+        <div class="sums" v-if="getUserName !== ''">
             <span class="sum">Your income: {{ profitsSum }}</span>
             <span class="sum">Your costs: {{ costsSum }}</span>
             <span class="sum">The balance is: {{ getBalance }}</span>
@@ -29,7 +29,7 @@
                     {{ getUserName }}
                 </li>
                 <li class="menu-item">
-                    <a href="#">Sign Out</a>
+                    <a href="#" @click="signOut">Sign Out</a>
                 </li>
             </ul>
         </nav>
@@ -40,6 +40,7 @@
 
 <script>
     import LoginModal from './users/Login.vue'
+    import { mapActions } from 'vuex';
 
     export default {
         data() {
@@ -70,7 +71,9 @@
             getUserName() {
                 return this.$store.getters.getCurrentUserName;
             }
-        }
+        },
+
+        methods: mapActions(['signOut'])
     }
 </script>
 
