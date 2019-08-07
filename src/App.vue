@@ -10,7 +10,11 @@
 
   export default {
     components: {
-      appHeader: Header
+        appHeader: Header
+    },
+
+    beforeCreate() {
+        this.$store.dispatch('checkSession');
     }
   }
 </script>

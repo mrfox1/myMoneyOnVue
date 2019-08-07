@@ -14,7 +14,7 @@
             </ul>
         </nav>
 
-        <div class="sums">
+        <div class="sums" v-if="getUserName !== ''">
             <span class="sum">Your income: {{ profitsSum }}</span>
             <span class="sum">Your costs: {{ costsSum }}</span>
             <span class="sum">The balance is: {{ getBalance }}</span>
@@ -22,22 +22,40 @@
 
         <nav>
             <ul class="menu">
-                <li class="menu-item">
-                    <a href="#">Sign In</a>
+                <li class="menu-item" v-if="getUserName === ''">
+                    <a v-on:click="modalVisible = !modalVisible" href="#">Sign In</a>
+                </li>
+                <li class="menu-item" v-else>
+                    {{ getUserName }}
                 </li>
                 <li class="menu-item">
-                    <a href="#">Sign Out</a>
+                    <a href="#" @click="signOut">Sign Out</a>
                 </li>
             </ul>
         </nav>
+
+        <login-modal v-bind:isVisible="modalVisible" v-on:closeModal="modalVisible = false"></login-modal>
     </header>
 </template>
 
 <script>
+    import LoginModal from './users/Login.vue'
+    import { mapActions } from 'vuex';
+
     export default {
+        data() {
+            return {
+                modalVisible: false
+            }
+        },
+
         beforeCreate() {
             this.$store.dispatch('getIncomesFromApi');
             this.$store.dispatch('sumOfCosts');
+        },
+
+        components: {
+            loginModal: LoginModal
         },
 
         computed: {
@@ -49,8 +67,13 @@
             },
             getBalance() {
                return this.$store.getters.getSum - this.$store.getters.getCostsSum;
+            },
+            getUserName() {
+                return this.$store.getters.getCurrentUserName;
             }
-        }
+        },
+
+        methods: mapActions(['signOut'])
     }
 </script>
 
