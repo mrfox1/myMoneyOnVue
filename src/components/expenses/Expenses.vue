@@ -1,12 +1,12 @@
 <template>
     <div class="row">
         <div class="items-container">
-            <app-cost
+            <app-expense
                 v-for="(cost, index) in costs"
                 :key="cost.id"
                 v-bind:cost="cost"
                 v-bind:index="index">
-            </app-cost>
+            </app-expense>
         </div>
          <form v-if="formVisible" id="formProfit">
             <h3>Add new Cost</h3>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import Cost from './Cost.vue';
+    import Expense from './Expense.vue';
 
     export default {
         data() {
@@ -47,7 +47,7 @@
         },
 
         components: {
-            appCost: Cost
+            appExpense: Expense
         },
 
         computed: {

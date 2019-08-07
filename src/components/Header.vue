@@ -9,7 +9,7 @@
                     <router-link to="/income">Income</router-link>
                 </li>
                 <li class="menu-item">
-                     <router-link to="/costs">Expenses</router-link>
+                     <router-link to="/expenses">Expenses</router-link>
                 </li>
             </ul>
         </nav>
