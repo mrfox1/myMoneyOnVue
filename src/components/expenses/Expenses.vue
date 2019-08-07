@@ -62,8 +62,7 @@
                     sum: this.sum,
                     category: this.category
                 });
-                this.sum = null;
-                this.category = null;
+                this.sum = this.category = null;
                 this.formVisible = false;
             }
         }

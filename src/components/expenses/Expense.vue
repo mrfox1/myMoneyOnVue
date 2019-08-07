@@ -5,7 +5,7 @@
         </button>
         <div class="item-body title expense-title">
             <h3 class="item-title" v-if="!editCostVisible">
-                Cost: {{ expense.sum }}
+                Sum: {{ expense.sum }}
             </h3>
             <input
                     type="number"

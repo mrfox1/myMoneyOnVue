@@ -74,7 +74,7 @@ const getters = {
     getExpenses() {
         return state.expenses;
     },
-    getCostsSum() {
+    getExpensesSum() {
         return state.sumOfExpenses;
     }
 };

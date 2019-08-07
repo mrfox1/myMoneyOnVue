@@ -16,7 +16,7 @@
 
         <div class="sums" v-if="getUserName !== ''">
             <span class="sum">Your income: {{ profitsSum }}</span>
-            <span class="sum">Your costs: {{ costsSum }}</span>
+            <span class="sum">Your expenses: {{ costsSum }}</span>
             <span class="sum">The balance is: {{ getBalance }}</span>
         </div>
 
@@ -63,10 +63,10 @@
                 return this.$store.getters.getSum;
             },
             costsSum() {
-                return this.$store.getters.getCostsSum;
+                return this.$store.getters.getExpensesSum;
             },
             getBalance() {
-               return this.$store.getters.getSum - this.$store.getters.getCostsSum;
+               return this.$store.getters.getSum - this.$store.getters.getExpensesSum;
             },
             getUserName() {
                 return this.$store.getters.getCurrentUserName;
