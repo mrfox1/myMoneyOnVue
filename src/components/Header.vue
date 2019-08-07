@@ -51,7 +51,7 @@
 
         beforeCreate() {
             this.$store.dispatch('getIncomesFromApi');
-            this.$store.dispatch('sumOfCosts');
+            this.$store.dispatch('getExpensesFromApi');
         },
 
         components: {

@@ -2,14 +2,14 @@
     <div class="row">
         <div class="items-container">
             <app-expense
-                v-for="(cost, index) in costs"
-                :key="cost.id"
-                v-bind:cost="cost"
+                v-for="(expense, index) in expenses"
+                :key="expense.id"
+                v-bind:expense="expense"
                 v-bind:index="index">
             </app-expense>
         </div>
          <form v-if="formVisible" id="formProfit">
-            <h3>Add new Cost</h3>
+            <h3>Add new Expense</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
                 <br>
@@ -25,7 +25,7 @@
             <button type="button" class="btn" @click="sendData">Submit</button>
         </form>
         <button class="btn" @click="formVisible = !formVisible">
-            Add Cost
+            Add Expense
         </button>
     </div>
 </template>
@@ -51,13 +51,13 @@
         },
 
         computed: {
-            costs() {
-                return this.$store.getters.getCosts;
+            expenses() {
+                return this.$store.getters.getExpenses;
             }
         },
         methods: {
             sendData() {
-                this.$store.dispatch('createCost', {
+                this.$store.dispatch('createExpense', {
                     date: this.date,
                     sum: this.sum,
                     category: this.category

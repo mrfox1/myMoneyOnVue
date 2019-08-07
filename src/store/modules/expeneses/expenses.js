@@ -1,66 +1,81 @@
-//test data
-//add loading from server in future
-
 import store from '../../store'
+import globalAxios from 'axios';
 
 const state = {
-    sumOfCosts: null,
-    costs: [
-        {date: '2018-10-23', sum: 40, category: 'food'},
-        {date: '2018-10-24', sum: 5, category: 'transport'},
-        {date: '2018-10-24', sum: 50, category: 'transport'},
-        {date: '2018-10-24', sum: 100, category: 'other'},
-        {date: '2018-10-24', sum: 200, category: 'food'}
-    ]
+    sumOfExpenses: 0,
+    expenses: null
 };
 
 const mutations = {
-    create(state, data) {
-        state.costs.push(data);
+    saveExpenses(state, data) {
+        state.expenses = data;
     },
 
+    create(state, data) {
+        state.expenses.push(data);
+    },
+    // must be fixed
     update(state, data) {
-        state.costs[data.index] = {
+        state.expenses[data.index] = {
             date: data.date,
             sum: data.sum,
             category: data.category
         }
     },
 
-    updateSumOfCosts(state) {
-        const sum = state.costs.reduce((accumulator, currentValue) => {
+    updateSumOfExpenses(state) {
+        const sum = state.expenses.reduce((accumulator, currentValue) => {
             if (currentValue.isInteger) {
                 return accumulator + currentValue.sum;
             } else {
                 return accumulator + parseInt(currentValue.sum, 10);
             }
         }, 0);
-        state.sumOfCosts = sum;
+        state.sumOfExpenses = sum;
     }
 };
 
 const actions = {
-    createCost({commit}, costData) {
-        commit('create', costData);
-        store.dispatch('sumOfCosts')
+    createExpense({commit, dispatch}, expenseData) {
+        globalAxios.post('/expenses', expenseData)
+            .then(res => {
+                console.log(res);
+                commit('create', res.data);
+                dispatch('sumOfExpenses')
+            })
+            .catch(error => console.log(error));
     },
 
-    updateCost({commit}, newCostData) {
-        commit('update', newCostData);
-        store.dispatch('sumOfCosts');
+    updateExpense({commit, dispatch}, newExpenseData) {
+        commit('update', newExpenseData);
+        globalAxios.put('/expenses/'+newExpenseData.id, { sum: newExpenseData.sum, category: newExpenseData.category, date: newExpenseData.date })
+            .then(res => {
+                console.log(res);
+                dispatch('sumOfExpenses');
+            })
+            .catch(error => console.log(error));
     },
 
-    sumOfCosts({commit}) {
-        commit('updateSumOfCosts');
+    sumOfExpenses({commit}) {
+        commit('updateSumOfExpenses');
+    },
+
+    getExpensesFromApi({commit, dispatch}) {
+        globalAxios.get('/expenses')
+            .then(res => {
+                commit('saveExpenses', res.data);
+                dispatch('sumOfExpenses');
+            })
+            .catch(error => console.log(error));
     }
 };
 
 const getters = {
-    getCosts() {
-        return state.costs;
+    getExpenses() {
+        return state.expenses;
     },
     getCostsSum() {
-        return state.sumOfCosts;
+        return state.sumOfExpenses;
     }
 };
 

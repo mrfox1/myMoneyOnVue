@@ -2,7 +2,7 @@ import store from '../../store'
 import globalAxios from 'axios';
 
 const state = {
-    sumOfProfits: null,
+    sumOfProfits: 0,
     profits: null
 };
 
@@ -61,11 +61,11 @@ const actions = {
         commit('updateSumOfProfits');
     },
 
-    getIncomesFromApi({commit}) {
+    getIncomesFromApi({commit, dispatch}) {
         globalAxios.get('/incomes')
             .then(res => {
                 commit('loadProfits', res.data);
-                store.dispatch('sumOfProfits');
+                dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
     }
