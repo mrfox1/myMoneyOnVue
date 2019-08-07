@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
             <app-expense
                 v-for="(expense, index) in expenses"
@@ -53,6 +53,9 @@
         computed: {
             expenses() {
                 return this.$store.getters.getExpenses;
+            },
+            getUserName() {
+                return this.$store.getters.getCurrentUserName;
             }
         },
         methods: {

@@ -32,6 +32,10 @@ const mutations = {
             }
         }, 0);
         state.sumOfExpenses = sum;
+    },
+
+    deleteExpenses(state) {
+        state.expenses = null;
     }
 };
 

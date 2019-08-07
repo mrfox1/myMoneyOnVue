@@ -32,6 +32,10 @@ const mutations = {
              }
         }, 0);
         state.sumOfProfits = sum;
+    },
+
+    deleteIncomes(state) {
+        state.profits = null;
     }
 };
 
