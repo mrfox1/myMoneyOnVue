@@ -1,4 +1,4 @@
-import store from '../store'
+import store from '../../store'
 import globalAxios from 'axios';
 
 const state = {
@@ -74,7 +74,7 @@ const actions = {
 const getters = {
     getProfits() {
         return state.profits;
-    }, 
+    },
     getSum() {
         return state.sumOfProfits;
     }
