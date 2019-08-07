@@ -14,7 +14,6 @@ const mutations = {
         localStorage.setItem("token", data.token);
         state.user.name = localStorage.getItem('userName');
         state.user.token = localStorage.getItem('token');
-        globalAxios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     }
 };
 
@@ -39,6 +38,12 @@ const actions = {
                 commit('saveUserData', res.data.user);
             })
             .catch(error => console.log(error));
+    },
+
+    checkSession() {
+        if (localStorage.getItem('token') !== null) {
+            globalAxios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+        }
     }
 };
 
