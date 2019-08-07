@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
             <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
@@ -47,6 +47,9 @@
         computed: {
             profits() {
                 return this.$store.getters.getProfits;
+            },
+            getUserName() {
+                return this.$store.getters.getCurrentUserName;
             }
         },
         methods: {
@@ -56,8 +59,7 @@
                     sum: this.sum,
                     category: this.category
                 });
-                this.sum = null;
-                this.category = null;
+                this.sum = this.category = null;
                 this.formVisible = false;
             }
         }

@@ -5,36 +5,36 @@
         </button>
         <div class="item-body title expense-title">
             <h3 class="item-title" v-if="!editCostVisible">
-                Cost: {{ cost.sum }}
+                Sum: {{ expense.sum }}
             </h3>
             <input
                     type="number"
                     class="form-input expense-edit-input"
                     placeholder="Edit sum of this cost"
                     v-if="editCostVisible"
-                    v-model="costData.sum"
-                    v-on:change="updateCostData"
+                    v-model="expenseData.sum"
+                    v-on:change="updateExpenseData"
             >
         </div>
 
         <div class="item-data">
-            <p class="item-text" v-if="!editCostVisible">Date: {{ cost.date }}</p>
+            <p class="item-text" v-if="!editCostVisible">Date: {{ expense.date }}</p>
             <input
                     type="date"
                     class="form-input expense-edit-input"
                     placeholder="Edit date" 
                     v-if="editCostVisible" 
-                    v-model="costData.date" 
-                    v-on:change="updateCostData"
+                    v-model="expenseData.date"
+                    v-on:change="updateExpenseData"
             >
-            <p class="item-text" v-if="!editCostVisible">Category: {{ cost.category }}</p>
+            <p class="item-text" v-if="!editCostVisible">Category: {{ expense.category }}</p>
             <input
                     type="text" 
                     class="form-input "
                     placeholder="Edit category of cost" 
                     v-if="editCostVisible" 
-                    v-model="costData.category" 
-                    v-on:change="updateCostData"
+                    v-model="expenseData.category"
+                    v-on:change="updateExpenseData"
             >
             <a href="#" class="btn edit-btn edit-expense-btn" v-on:click.self="editCostVisible = true">Edit</a>
         </div>
@@ -43,21 +43,22 @@
 
 <script>
     export default {
-        props: ['cost', 'index'],
+        props: ['expense', 'index'],
         data() {
             return {
                 editCostVisible: false,
-                costData: this.cost
+                expenseData: this.expense
             };
         },
         methods: {
-            updateCostData() {
+            updateExpenseData() {
                 this.editCostVisible = false;
-                this.$store.dispatch('updateCost', {
+                this.$store.dispatch('updateExpense', {
+                    id: this.expenseData.id,
                     index: this.index,
-                    date: this.costData.date,
-                    sum: this.costData.sum,
-                    category: this.costData.category
+                    date: this.expenseData.date,
+                    sum: this.expenseData.sum,
+                    category: this.expenseData.category
                 });
             }
         }
