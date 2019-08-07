@@ -9,14 +9,14 @@
                     <router-link to="/income">Income</router-link>
                 </li>
                 <li class="menu-item">
-                     <router-link to="/costs">Expenses</router-link>
+                     <router-link to="/expenses">Expenses</router-link>
                 </li>
             </ul>
         </nav>
 
         <div class="sums" v-if="getUserName !== ''">
             <span class="sum">Your income: {{ profitsSum }}</span>
-            <span class="sum">Your costs: {{ costsSum }}</span>
+            <span class="sum">Your expenses: {{ costsSum }}</span>
             <span class="sum">The balance is: {{ getBalance }}</span>
         </div>
 
@@ -51,7 +51,7 @@
 
         beforeCreate() {
             this.$store.dispatch('getIncomesFromApi');
-            this.$store.dispatch('sumOfCosts');
+            this.$store.dispatch('getExpensesFromApi');
         },
 
         components: {
@@ -63,10 +63,10 @@
                 return this.$store.getters.getSum;
             },
             costsSum() {
-                return this.$store.getters.getCostsSum;
+                return this.$store.getters.getExpensesSum;
             },
             getBalance() {
-               return this.$store.getters.getSum - this.$store.getters.getCostsSum;
+               return this.$store.getters.getSum - this.$store.getters.getExpensesSum;
             },
             getUserName() {
                 return this.$store.getters.getCurrentUserName;

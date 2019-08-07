@@ -19,8 +19,7 @@ const mutations = {
     deleteSession(state) {
         localStorage.removeItem('userName');
         localStorage.removeItem('token');
-        state.user.name = '';
-        state.user.token = '';
+        state.user.name = state.user.token = '';
     }
 };
 
@@ -34,7 +33,7 @@ const actions = {
             .catch(error => console.log(error));
     },
 
-    createSession({commit}, credentials) {
+    createSession({commit, dispatch}, credentials) {
         globalAxios.post('/users/login', {
             user: {
                 email: credentials.email,
@@ -43,6 +42,9 @@ const actions = {
             .then(res => {
                 console.log(res.data.user);
                 commit('saveUserData', res.data.user);
+                globalAxios.defaults.headers.common['Authorization'] = res.data.user.token;
+                dispatch('getExpensesFromApi');
+                dispatch('getIncomesFromApi')
             })
             .catch(error => console.log(error));
     },
@@ -51,6 +53,8 @@ const actions = {
         globalAxios.get('/users/logout')
             .then(res => {
                 commit('deleteSession');
+                commit('deleteIncomes');
+                commit('deleteExpenses');
                 console.log(res);
             })
             .catch(error => console.log(error));
