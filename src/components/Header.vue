@@ -50,8 +50,10 @@
         },
 
         beforeCreate() {
-            this.$store.dispatch('getIncomesFromApi');
-            this.$store.dispatch('getExpensesFromApi');
+            if (this.getUserName !== undefined) {
+                this.$store.dispatch('getIncomesFromApi');
+                this.$store.dispatch('getExpensesFromApi');
+            }
         },
 
         components: {
