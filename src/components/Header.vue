@@ -53,6 +53,8 @@
             if (this.getUserName !== undefined) {
                 this.$store.dispatch('getIncomesFromApi');
                 this.$store.dispatch('getExpensesFromApi');
+                this.$store.dispatch('getCategoriesFromApi');
+                console.log(this.$store.dispatch('getCategoriesFromApi'))
             }
         },
 
