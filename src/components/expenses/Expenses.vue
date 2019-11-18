@@ -8,7 +8,7 @@
                 v-bind:index="index">
             </app-expense>
         </div>
-         <form v-if="formVisible" id="formProfit">
+         <form v-if="formVisible" id="new-record-form">
             <h3>Add new Expense</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
@@ -73,17 +73,6 @@
 </script>
 
 <style scoped>
-    #formProfit {
-        text-align: center;
-        padding-bottom: 20px;
-    }
-
-    .form-control {
-        text-align: center;
-        width: 40%;
-        margin-left: 30%;
-    }
-
     .cost-records {
         display: flex;
         justify-content: space-between;

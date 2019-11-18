@@ -3,7 +3,7 @@
         <div class="items-container">
             <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
         </div>
-        <form v-if="formVisible" id="formProfit">
+        <form v-if="formVisible" id="new-record-form">
             <h3>Add new Profit</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
@@ -66,15 +66,4 @@
     }
 </script>
 
-<style scoped>
-    #formProfit {
-        text-align: center;
-        padding-bottom: 20px;
-    }
-
-    .form-control {
-        text-align: center;
-        width: 40%;
-        margin-left: 30%;
-    }
-</style>
+<style scoped></style>
