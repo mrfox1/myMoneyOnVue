@@ -6,16 +6,30 @@ const state = {
 };
 
 const mutations = {
-    saveCategories(state, data) {
-        state.categories = data;
+    saveCategory(state, data) {
+        if (state.categories === null) {
+            state.categories = data;
+        } else {
+            state.categories.push(data);
+        }
     }
 };
 
 const actions = {
-    getExpensesFromApi({commit, dispatch}) {
+    createCategory({commit, dispatch}, categoryData) {
+        globalAxios.post('/categories', categoryData)
+            .then(res => {
+                console.log(res);
+                commit('saveCategory', res.data);
+            })
+            .catch(error => console.log(error));
+    },
+
+    getCategoriesFromApi({commit, dispatch}) {
         globalAxios.get('/categories')
             .then(res => {
-                commit('saveCategories', res.data);
+                commit('saveCategory', res.data);
+                console.log(res.data);
             })
             .catch(error => console.log(error));
     }
