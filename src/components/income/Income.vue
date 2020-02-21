@@ -1,7 +1,10 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
+            <app-profit v-for="(profit, index) in profits"
+                        :key="profit.id" :profit="profit" :index="index"
+                        @openModal="openEditModal">
+            </app-profit>
         </div>
         <form v-if="formVisible" id="new-record-form">
             <h3>Add new Profit</h3>
@@ -33,17 +36,22 @@
         <button class="btn" @click="formVisible = !formVisible">
             Add Profit
         </button>
+
+        <edit-modal v-if="currentProfit !== null || currentProfit !== undefined" :editableRecord="currentProfit" :isVisible="modalVisible" :modal-name="editModalName"
+                    @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
 
 <script>
-    import Profit from './Profit.vue'
+    import Profit from './Profit.vue';
+    import EditModal from '../modals/EditRecords.vue';
 
     export default {
         data() {
             const d = new Date();
             const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
             return {
+                editModalName: "Update Profit",
                 date: date,
                 sum: null,
                 category: null,
@@ -52,11 +60,14 @@
                 selectedCategory: {
                     id: null,
                     name: ""
-                }
+                },
+                modalVisible: false,
+                currentProfit: null
             };
         },
         components: {
-            appProfit: Profit
+            appProfit: Profit,
+            editModal: EditModal
         },
 
         computed: {
@@ -71,6 +82,14 @@
             }
         },
         methods: {
+            // method in emited event from profit to parent component
+            openEditModal(value) {
+                this.modalVisible = true;
+                this.currentProfit = value;
+                console.log(value)
+                console.log(this.currentProfit)
+            },
+
             sendData() {
                 this.$store.dispatch('createProfit', {
                     date: this.date,
