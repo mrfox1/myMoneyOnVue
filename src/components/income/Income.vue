@@ -1,8 +1,8 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-profit v-for="(profit, index) in profits"
-                        :key="profit.id" :profit="profit" :index="index"
+            <app-profit v-for="profit in profits"
+                        :key="profit.id" :profit="profit"
                         @openModal="openEditModal">
             </app-profit>
         </div>
@@ -86,8 +86,6 @@
             openEditModal(value) {
                 this.modalVisible = true;
                 this.currentProfit = value;
-                console.log(value)
-                console.log(this.currentProfit)
             },
 
             sendData() {

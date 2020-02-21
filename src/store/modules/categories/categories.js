@@ -19,7 +19,6 @@ const actions = {
     createCategory({commit, dispatch}, categoryData) {
         globalAxios.post('/categories', categoryData)
             .then(res => {
-                console.log(res);
                 commit('saveCategory', res.data);
             })
             .catch(error => console.log(error));
@@ -29,7 +28,6 @@ const actions = {
         globalAxios.get('/categories')
             .then(res => {
                 commit('saveCategory', res.data);
-                console.log(res.data);
             })
             .catch(error => console.log(error));
     }

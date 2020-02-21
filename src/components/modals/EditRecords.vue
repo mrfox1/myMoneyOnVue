@@ -7,29 +7,25 @@
             </button>
         </div>
         <div class="modal-body">
-            <div>{{ record }}</div>
             <input
                     type="number"
                     class="form-input"
                     placeholder="Edit sum of profit"
-                    v-model="record.sum">
-<!--                    v-on:change="updateProfitData"-->
-
+                    v-model="record.sum"
+                    v-on:change="updateProfitData">
 
             <input
                     type="date"
                     class="form-input"
                     placeholder="Edit date"
-                    v-model="record.date">
-<!--                    v-on:change="updateProfitData"-->
-
-
+                    v-model="record.date"
+                    v-on:change="updateProfitData">
 
             <div v-if="this.categories === null" class="form-group">
                 <input type="text" class="form-control"
                        placeholder="Enter category of profit"
-                       v-model="newCategory">
-<!--                       @change="createCategory">-->
+                       v-model="newCategory"
+                       @change="createCategory">
                 <p>{{ this.categories }}</p>
             </div>
             <div v-else>
@@ -40,14 +36,6 @@
                     </select>
                 </div>
             </div>
-
-            <input
-                    type="text"
-                    class="form-input"
-                    placeholder="Edit category of profit"
-                    v-model="record.category">
-<!--                    v-on:change="updateProfitData"-->
-
         </div>
     </div>
 </template>
@@ -81,6 +69,25 @@
                 handler() {
                     this.record = this.editableRecord;
                 }
+            }
+        },
+        methods: {
+            updateProfitData() {
+                this.$store.dispatch('updateProfit', {
+                    id: this.record.id,
+                    date: this.record.date,
+                    sum: this.record.sum,
+                    category: this.selectedCategory.id
+                });
+            },
+
+            createCategory() {
+                this.$store.dispatch('createCategory', {
+                    category: {
+                        name: this.category,
+                        record_type: "Profit"
+                    }
+                });
             }
         }
     }
