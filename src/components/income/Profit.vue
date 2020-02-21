@@ -23,11 +23,6 @@
             return {
                 editProfitVisible: false,
                 profitData: this.profit,
-                category: null,
-                selectedCategory: {
-                    id: null,
-                    name: ""
-                }
             };
         },
 

@@ -25,21 +25,21 @@
 
 
 
-<!--            <div v-if="this.categories === null" class="form-group">-->
-<!--                <input type="text" class="form-control"-->
-<!--                       placeholder="Enter category of profit"-->
-<!--                       v-model="category"-->
-<!--&lt;!&ndash;                       @change="createCategory">&ndash;&gt;>-->
-<!--                <p>{{ this.categories }}</p>-->
-<!--            </div>-->
-<!--            <div v-else>-->
-<!--                <div class="form-group">-->
-<!--                    <select class="form-control" placeholder="Enter category type"-->
-<!--                            v-model="selectedCategory.id" @change="updateProfitData">-->
-<!--                        <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div v-if="this.categories === null" class="form-group">
+                <input type="text" class="form-control"
+                       placeholder="Enter category of profit"
+                       v-model="newCategory">
+<!--                       @change="createCategory">-->
+                <p>{{ this.categories }}</p>
+            </div>
+            <div v-else>
+                <div class="form-group">
+                    <select class="form-control" placeholder="Enter category type"
+                            v-model="selectedCategory.id" @change="updateProfitData">
+                        <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
+                    </select>
+                </div>
+            </div>
 
             <input
                     type="text"
@@ -62,7 +62,17 @@
         },
         data() {
             return {
+                newCategory: null,
+                selectedCategory: {
+                    id: null,
+                    name: ""
+                },
                 record: this.editableRecord
+            }
+        },
+        computed: {
+            categories() {
+                return this.$store.getters.getCategories;
             }
         },
         watch: {
@@ -77,5 +87,13 @@
 </script>
 
 <style scoped>
-
+    #edit-modal {
+        position: absolute;
+        top: 25%;
+        left: calc(50% - 200px);
+        width: 400px;
+        min-height: 400px;
+        border: 1px solid #555;
+        z-index: 1;
+    }
 </style>
