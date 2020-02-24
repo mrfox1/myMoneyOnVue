@@ -10,7 +10,11 @@ const mutations = {
         if (state.categories === null) {
             state.categories = data;
         } else {
-            state.categories.push(data);
+            if (data.record_type == "Income") {
+                state.categories.categories.incomes_categories.push(data);
+            } else {
+                state.categories.categories.expenses_categories.push(data);
+            }
         }
     }
 };

@@ -1,7 +1,7 @@
 <template>
     <div id="edit-modal" v-if="isVisible === true">
         <div class="modal-header">
-            <h6 class="modal-name">{{ modalName }}</h6>
+            <h6 class="modal-name">Update {{ modalName }}</h6>
             <button type="button" class="close" @click="$emit('closeModal')">
                 <span>&times;</span>
             </button>
@@ -21,12 +21,11 @@
                     v-model="record.date"
                     v-on:change="updateProfitData">
 
-            <div v-if="this.categories === null" class="form-group">
+            <div v-if="this.categories === null || this.categories.length == 0" class="form-group">
                 <input type="text" class="form-control"
                        placeholder="Enter category of profit"
                        v-model="newCategory"
                        @change="createCategory">
-                <p>{{ this.categories }}</p>
             </div>
             <div v-else>
                 <div class="form-group">
@@ -60,7 +59,11 @@
         },
         computed: {
             categories() {
-                return this.$store.getters.getCategories;
+                if (this.modalName == "Income") {
+                    return this.$store.getters.getCategories.categories.incomes_categories;
+                } else {
+                    return this.$store.getters.getCategories.categories.expenses_categories;
+                }
             }
         },
         watch: {
@@ -84,8 +87,8 @@
             createCategory() {
                 this.$store.dispatch('createCategory', {
                     category: {
-                        name: this.category,
-                        record_type: "Profit"
+                        name: this.newCategory,
+                        record_type: this.modalName
                     }
                 });
             }

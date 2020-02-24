@@ -37,7 +37,7 @@
             Add Profit
         </button>
 
-        <edit-modal v-if="currentProfit !== null || currentProfit !== undefined" :editableRecord="currentProfit" :isVisible="modalVisible" :modal-name="editModalName"
+        <edit-modal  :editableRecord="currentProfit" :isVisible="modalVisible" :modal-name="editModalName"
                     @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
@@ -51,7 +51,7 @@
             const d = new Date();
             const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
             return {
-                editModalName: "Update Profit",
+                editModalName: "Income",
                 date: date,
                 sum: null,
                 category: null,
