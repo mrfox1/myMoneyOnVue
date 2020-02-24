@@ -1,8 +1,8 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-profit v-for="profit in profits"
-                        :key="profit.id" :profit="profit"
+            <app-profit v-for="(profit, index) in profits"
+                        :key="profit.id" :profit="profit" :index="index"
                         @openModal="openEditModal">
             </app-profit>
         </div>
@@ -38,7 +38,8 @@
         </button>
 
         <edit-modal  :editableRecord="currentProfit" :isVisible="modalVisible" :modal-name="editModalName"
-                    @closeModal="modalVisible = false"></edit-modal>
+                     :editable-record-index="currentProfitIndex"
+                     @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
 
@@ -62,7 +63,8 @@
                     name: ""
                 },
                 modalVisible: false,
-                currentProfit: null
+                currentProfit: null,
+                currentProfitIndex: null
             };
         },
         components: {
@@ -83,9 +85,10 @@
         },
         methods: {
             // method in emited event from profit to parent component
-            openEditModal(value) {
+            openEditModal(value, index) {
                 this.modalVisible = true;
                 this.currentProfit = value;
+                this.currentProfitIndex = index;
             },
 
             sendData() {

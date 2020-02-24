@@ -19,7 +19,8 @@ const mutations = {
         state.profits[data.index] = {
             date: data.date,
             sum: data.sum,
-            category: data.category
+            category: data.category_id,
+            category_name: data.category_name
         }
     },
 
@@ -51,11 +52,11 @@ const actions = {
     },
 
     updateProfit({commit}, newProfitData) {
-        commit('update', newProfitData);
-        store.dispatch('sumOfProfits');
+        //commit('update', newProfitData);
+        //store.dispatch('sumOfProfits');
         globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category_id: newProfitData.category_id, date: newProfitData.date })
             .then(res => {
-                console.log(res);
+                commit('update', res);
                 store.dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));

@@ -9,7 +9,7 @@
             <p class="item-text">Date: {{ profit.date }}</p>
             <p class="item-text">Category: {{ profit.category_name }}</p>
             <a href="#" class="btn edit-btn"
-               v-on:click.self="$emit('openModal', profit)"
+               v-on:click.self="$emit('openModal', profit, index)"
             >Edit</a>
         </div>
     </div>
@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ['profit'],
+        props: ['profit', 'index'],
         data() {
             return {
                 profitData: this.profit,

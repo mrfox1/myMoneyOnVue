@@ -45,7 +45,8 @@
             modalName: String,
             type: String,
             isVisible: Boolean,
-            editableRecord: Object
+            editableRecord: Object,
+            editableRecordIndex: Number
         },
         data() {
             return {
@@ -78,6 +79,7 @@
             updateProfitData() {
                 this.$store.dispatch('updateProfit', {
                     id: this.record.id,
+                    index: this.editableRecordIndex,
                     date: this.record.date,
                     sum: this.record.sum,
                     category_id: this.selectedCategory.id
