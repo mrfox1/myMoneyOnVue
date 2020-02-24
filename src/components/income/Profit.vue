@@ -7,7 +7,7 @@
         </div>
         <div class="item-data">
             <p class="item-text">Date: {{ profit.date }}</p>
-            <p class="item-text">Category: {{ profit.category }}</p>
+            <p class="item-text">Category: {{ profit.category_name }}</p>
             <a href="#" class="btn edit-btn"
                v-on:click.self="$emit('openModal', profit)"
             >Edit</a>

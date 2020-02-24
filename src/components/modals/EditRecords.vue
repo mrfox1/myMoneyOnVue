@@ -80,7 +80,7 @@
                     id: this.record.id,
                     date: this.record.date,
                     sum: this.record.sum,
-                    category: this.selectedCategory.id
+                    category_id: this.selectedCategory.id
                 });
             },
 

@@ -53,7 +53,7 @@ const actions = {
     updateProfit({commit}, newProfitData) {
         commit('update', newProfitData);
         store.dispatch('sumOfProfits');
-        globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category: newProfitData.category, date: newProfitData.date })
+        globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category_id: newProfitData.category_id, date: newProfitData.date })
             .then(res => {
                 console.log(res);
                 store.dispatch('sumOfProfits');
@@ -68,7 +68,7 @@ const actions = {
     getIncomesFromApi({commit, dispatch}) {
         globalAxios.get('/incomes')
             .then(res => {
-                commit('loadProfits', res.data);
+                commit('loadProfits', res.data.incomes);
                 dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
