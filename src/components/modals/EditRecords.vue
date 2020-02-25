@@ -77,7 +77,7 @@
         },
         methods: {
             updateProfitData() {
-                this.$store.dispatch('updateProfit', {
+                this.$store.dispatch('update'+this.modalName, {
                     id: this.record.id,
                     index: this.editableRecordIndex,
                     date: this.record.date,

@@ -46,17 +46,19 @@ const actions = {
             .then(res => {
                 commit('create', res.data);
                 store.dispatch('sumOfProfits');
-                console.log(res);
             })
             .catch(error => console.log(error));
     },
 
-    updateProfit({commit}, newProfitData) {
-        //commit('update', newProfitData);
-        //store.dispatch('sumOfProfits');
-        globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category_id: newProfitData.category_id, date: newProfitData.date })
+    updateIncome({commit}, newProfitData) {
+        globalAxios.put('/incomes/'+newProfitData.id, {
+            sum: newProfitData.sum,
+            category_id: newProfitData.category_id,
+            date: newProfitData.date
+        })
             .then(res => {
-                commit('update', res);
+                res.data['index'] = newProfitData.index;
+                commit('update', res.data);
                 store.dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
