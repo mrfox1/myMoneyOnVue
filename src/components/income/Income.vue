@@ -22,7 +22,6 @@
                        placeholder="Enter category of profit"
                        v-model="category"
                        @change="createCategory">
-                <p>{{ this.categories }}</p>
             </div>
             <div v-else>
                 <div class="form-group">
@@ -105,7 +104,7 @@
                 this.$store.dispatch('createCategory', {
                     category: {
                         name: this.category,
-                        record_type: "Profit"
+                        record_type: "Income"
                     }
                 });
             }

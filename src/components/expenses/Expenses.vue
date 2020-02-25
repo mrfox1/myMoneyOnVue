@@ -19,9 +19,19 @@
             <div class="form-group">
                 <input type="number" class="form-control" placeholder="Enter sum of cost" v-model="sum">
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter category of cost" v-model="category">
-            </div>
+             <div v-if="this.categories === null" class="form-group">
+                 <input type="text" class="form-control"
+                        placeholder="Enter category of profit"
+                        v-model="category"
+                        @change="createCategory">
+             </div>
+             <div v-else>
+                 <div class="form-group">
+                     <select class="form-control" placeholder="Enter category type" v-model="selectedCategory.id">
+                         <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
+                     </select>
+                 </div>
+             </div>
             <button type="button" class="btn" @click="sendData">Submit</button>
         </form>
         <button class="btn" @click="formVisible = !formVisible">
@@ -42,7 +52,11 @@
                 sum: null,
                 category: null,
                 formVisible: false,
-                editDateVisible: false
+                editDateVisible: false,
+                selectedCategory: {
+                    id: null,
+                    name: ""
+                }
             };
         },
 
@@ -56,6 +70,9 @@
             },
             getUserName() {
                 return this.$store.getters.getCurrentUserName;
+            },
+            categories() {
+                return this.$store.getters.getCategories.categories.expenses_categories;
             }
         },
         methods: {
@@ -67,6 +84,14 @@
                 });
                 this.sum = this.category = null;
                 this.formVisible = false;
+            },
+            createCategory() {
+                this.$store.dispatch('createCategory', {
+                    category: {
+                        name: this.category,
+                        record_type: "Expense"
+                    }
+                });
             }
         }
     }
