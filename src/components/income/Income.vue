@@ -80,7 +80,7 @@
                 return this.$store.getters.getCurrentUserName;
             },
             categories() {
-                return this.$store.getters.getCategories;
+                return this.$store.getters.getCategories.categories.incomes_categories;
             }
         },
         methods: {
