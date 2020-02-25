@@ -19,7 +19,8 @@ const mutations = {
         state.profits[data.index] = {
             date: data.date,
             sum: data.sum,
-            category: data.category
+            category: data.category_id,
+            category_name: data.category_name
         }
     },
 
@@ -41,21 +42,23 @@ const mutations = {
 
 const actions = {
     createProfit({commit}, profitData) {
-        commit('create', profitData);
-        store.dispatch('sumOfProfits');
         globalAxios.post('/incomes', profitData)
             .then(res => {
-                console.log(res);
+                commit('create', res.data);
+                store.dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
     },
 
-    updateProfit({commit}, newProfitData) {
-        commit('update', newProfitData);
-        store.dispatch('sumOfProfits');
-        globalAxios.put('/incomes/'+newProfitData.id, { sum: newProfitData.sum, category: newProfitData.category, date: newProfitData.date })
+    updateIncome({commit}, newProfitData) {
+        globalAxios.put('/incomes/'+newProfitData.id, {
+            sum: newProfitData.sum,
+            category_id: newProfitData.category_id,
+            date: newProfitData.date
+        })
             .then(res => {
-                console.log(res);
+                res.data['index'] = newProfitData.index;
+                commit('update', res.data);
                 store.dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
@@ -68,7 +71,7 @@ const actions = {
     getIncomesFromApi({commit, dispatch}) {
         globalAxios.get('/incomes')
             .then(res => {
-                commit('loadProfits', res.data);
+                commit('loadProfits', res.data.incomes);
                 dispatch('sumOfProfits');
             })
             .catch(error => console.log(error));
