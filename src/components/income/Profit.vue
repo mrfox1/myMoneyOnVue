@@ -22,12 +22,6 @@
             return {
                 profitData: this.profit,
             };
-        },
-
-        computed: {
-            categories() {
-                return this.$store.getters.getCategories;
-            }
         }
     }
 </script>

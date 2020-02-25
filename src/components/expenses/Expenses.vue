@@ -1,11 +1,9 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-expense
-                v-for="(expense, index) in expenses"
-                :key="expense.id"
-                v-bind:expense="expense"
-                v-bind:index="index">
+            <app-expense v-for="(expense, index) in expenses"
+                         :key="expense.id" :expense="expense" :index="index"
+                         @openModal="openEditModal">
             </app-expense>
         </div>
          <form v-if="formVisible" id="new-record-form">
@@ -37,17 +35,23 @@
         <button class="btn" @click="formVisible = !formVisible">
             Add Expense
         </button>
+
+        <edit-modal  :editableRecord="currentExpense" :isVisible="modalVisible" :modal-name="editModalName"
+                     :editable-record-index="currentExpenseIndex"
+                     @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
 
 <script>
     import Expense from './Expense.vue';
+    import EditModal from '../modals/EditRecords.vue';
 
     export default {
         data() {
             const d = new Date();
             const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
             return {
+                editModalName: "Expense",
                 date: date,
                 sum: null,
                 category: null,
@@ -56,12 +60,16 @@
                 selectedCategory: {
                     id: null,
                     name: ""
-                }
+                },
+                modalVisible: false,
+                currentExpense: null,
+                currentExpenseIndex: null
             };
         },
 
         components: {
-            appExpense: Expense
+            appExpense: Expense,
+            editModal: EditModal
         },
 
         computed: {
@@ -76,6 +84,12 @@
             }
         },
         methods: {
+            // method in emited event from profit to parent component
+            openEditModal(value, index) {
+                this.modalVisible = true;
+                this.currentExpense = value;
+                this.currentExpenseIndex = index;
+            },
             sendData() {
                 this.$store.dispatch('createExpense', {
                     date: this.date,
