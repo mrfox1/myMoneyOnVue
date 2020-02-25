@@ -50,8 +50,11 @@
         },
 
         beforeCreate() {
-            this.$store.dispatch('getIncomesFromApi');
-            this.$store.dispatch('getExpensesFromApi');
+            if (this.$store.getters.getCurrentUserName !== undefined) {
+                this.$store.dispatch('getIncomesFromApi');
+                this.$store.dispatch('getExpensesFromApi');
+                this.$store.dispatch('getCategoriesFromApi');
+            }
         },
 
         components: {

@@ -1,14 +1,12 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-expense
-                v-for="(expense, index) in expenses"
-                :key="expense.id"
-                v-bind:expense="expense"
-                v-bind:index="index">
+            <app-expense v-for="(expense, index) in expenses"
+                         :key="expense.id" :expense="expense" :index="index"
+                         @openModal="openEditModal">
             </app-expense>
         </div>
-         <form v-if="formVisible" id="formProfit">
+         <form v-if="formVisible" id="new-record-form">
             <h3>Add new Expense</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
@@ -19,35 +17,59 @@
             <div class="form-group">
                 <input type="number" class="form-control" placeholder="Enter sum of cost" v-model="sum">
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter category of cost" v-model="category">
-            </div>
+             <div v-if="this.categories === null" class="form-group">
+                 <input type="text" class="form-control"
+                        placeholder="Enter category of profit"
+                        v-model="category"
+                        @change="createCategory">
+             </div>
+             <div v-else>
+                 <div class="form-group">
+                     <select class="form-control" placeholder="Enter category type" v-model="selectedCategory.id">
+                         <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
+                     </select>
+                 </div>
+             </div>
             <button type="button" class="btn" @click="sendData">Submit</button>
         </form>
         <button class="btn" @click="formVisible = !formVisible">
             Add Expense
         </button>
+
+        <edit-modal  :editableRecord="currentExpense" :isVisible="modalVisible" :modal-name="editModalName"
+                     :editable-record-index="currentExpenseIndex"
+                     @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
 
 <script>
     import Expense from './Expense.vue';
+    import EditModal from '../modals/EditRecords.vue';
 
     export default {
         data() {
             const d = new Date();
             const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
             return {
+                editModalName: "Expense",
                 date: date,
                 sum: null,
                 category: null,
                 formVisible: false,
-                editDateVisible: false
+                editDateVisible: false,
+                selectedCategory: {
+                    id: null,
+                    name: ""
+                },
+                modalVisible: false,
+                currentExpense: null,
+                currentExpenseIndex: null
             };
         },
 
         components: {
-            appExpense: Expense
+            appExpense: Expense,
+            editModal: EditModal
         },
 
         computed: {
@@ -56,34 +78,40 @@
             },
             getUserName() {
                 return this.$store.getters.getCurrentUserName;
+            },
+            categories() {
+                return this.$store.getters.getCategories.categories.expenses_categories;
             }
         },
         methods: {
+            // method in emited event from profit to parent component
+            openEditModal(value, index) {
+                this.modalVisible = true;
+                this.currentExpense = value;
+                this.currentExpenseIndex = index;
+            },
             sendData() {
                 this.$store.dispatch('createExpense', {
                     date: this.date,
                     sum: this.sum,
-                    category: this.category
+                    category_id: this.selectedCategory.id
                 });
                 this.sum = this.category = null;
                 this.formVisible = false;
+            },
+            createCategory() {
+                this.$store.dispatch('createCategory', {
+                    category: {
+                        name: this.category,
+                        record_type: "Expense"
+                    }
+                });
             }
         }
     }
 </script>
 
 <style scoped>
-    #formProfit {
-        text-align: center;
-        padding-bottom: 20px;
-    }
-
-    .form-control {
-        text-align: center;
-        width: 40%;
-        margin-left: 30%;
-    }
-
     .cost-records {
         display: flex;
         justify-content: space-between;

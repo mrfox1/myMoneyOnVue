@@ -1,9 +1,12 @@
 <template>
     <div class="row" v-if="getUserName !== ''">
         <div class="items-container">
-            <app-profit v-for="(profit, index) in profits" :key="profit.id" :profit="profit" :index="index"></app-profit>
+            <app-profit v-for="(profit, index) in profits"
+                        :key="profit.id" :profit="profit" :index="index"
+                        @openModal="openEditModal">
+            </app-profit>
         </div>
-        <form v-if="formVisible" id="formProfit">
+        <form v-if="formVisible" id="new-record-form">
             <h3>Add new Profit</h3>
             <h4 @click="editDateVisible = !editDateVisible">
                 Today: {{ date }}
@@ -14,34 +17,58 @@
             <div class="form-group">
                 <input type="number" class="form-control" placeholder="Enter sum of profit" v-model="sum">
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter category of profit" v-model="category">
+            <div v-if="this.categories === null" class="form-group">
+                <input type="text" class="form-control"
+                       placeholder="Enter category of profit"
+                       v-model="category"
+                       @change="createCategory">
+            </div>
+            <div v-else>
+                <div class="form-group">
+                    <select class="form-control" placeholder="Enter category type" v-model="selectedCategory.id">
+                        <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
+                    </select>
+                </div>
             </div>
             <button type="button" class="btn" @click="sendData">Submit</button>
         </form>
         <button class="btn" @click="formVisible = !formVisible">
             Add Profit
         </button>
+
+        <edit-modal  :editableRecord="currentProfit" :isVisible="modalVisible" :modal-name="editModalName"
+                     :editable-record-index="currentProfitIndex"
+                     @closeModal="modalVisible = false"></edit-modal>
     </div>
 </template>
 
 <script>
-    import Profit from './Profit.vue'
+    import Profit from './Profit.vue';
+    import EditModal from '../modals/EditRecords.vue';
 
     export default {
         data() {
             const d = new Date();
             const date = d.getFullYear()+ '-' + (d.getMonth() + 1) + '-' + d.getDate();
             return {
+                editModalName: "Income",
                 date: date,
                 sum: null,
                 category: null,
                 formVisible: false,
-                editDateVisible: false
+                editDateVisible: false,
+                selectedCategory: {
+                    id: null,
+                    name: ""
+                },
+                modalVisible: false,
+                currentProfit: null,
+                currentProfitIndex: null
             };
         },
         components: {
-            appProfit: Profit
+            appProfit: Profit,
+            editModal: EditModal
         },
 
         computed: {
@@ -50,31 +77,39 @@
             },
             getUserName() {
                 return this.$store.getters.getCurrentUserName;
+            },
+            categories() {
+                return this.$store.getters.getCategories.categories.incomes_categories;
             }
         },
         methods: {
+            // method in emited event from profit to parent component
+            openEditModal(value, index) {
+                this.modalVisible = true;
+                this.currentProfit = value;
+                this.currentProfitIndex = index;
+            },
+
             sendData() {
                 this.$store.dispatch('createProfit', {
                     date: this.date,
                     sum: this.sum,
-                    category: this.category
+                    category_id: this.selectedCategory.id
                 });
                 this.sum = this.category = null;
                 this.formVisible = false;
+            },
+
+            createCategory() {
+                this.$store.dispatch('createCategory', {
+                    category: {
+                        name: this.category,
+                        record_type: "Income"
+                    }
+                });
             }
         }
     }
 </script>
 
-<style scoped>
-    #formProfit {
-        text-align: center;
-        padding-bottom: 20px;
-    }
-
-    .form-control {
-        text-align: center;
-        width: 40%;
-        margin-left: 30%;
-    }
-</style>
+<style scoped></style>

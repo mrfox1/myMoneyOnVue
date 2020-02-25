@@ -19,7 +19,8 @@ const mutations = {
         state.expenses[data.index] = {
             date: data.date,
             sum: data.sum,
-            category: data.category
+            category: data.category_id,
+            category_name: data.category_name
         }
     },
 
@@ -43,7 +44,6 @@ const actions = {
     createExpense({commit, dispatch}, expenseData) {
         globalAxios.post('/expenses', expenseData)
             .then(res => {
-                console.log(res);
                 commit('create', res.data);
                 dispatch('sumOfExpenses')
             })
@@ -51,10 +51,14 @@ const actions = {
     },
 
     updateExpense({commit, dispatch}, newExpenseData) {
-        commit('update', newExpenseData);
-        globalAxios.put('/expenses/'+newExpenseData.id, { sum: newExpenseData.sum, category: newExpenseData.category, date: newExpenseData.date })
+        globalAxios.put('/expenses/'+newExpenseData.id, {
+            sum: newExpenseData.sum,
+            category_id: newExpenseData.category_id,
+            date: newExpenseData.date
+        })
             .then(res => {
-                console.log(res);
+                res.data['index'] = newExpenseData.index;
+                commit('update', res.data);
                 dispatch('sumOfExpenses');
             })
             .catch(error => console.log(error));
@@ -67,7 +71,7 @@ const actions = {
     getExpensesFromApi({commit, dispatch}) {
         globalAxios.get('/expenses')
             .then(res => {
-                commit('saveExpenses', res.data);
+                commit('saveExpenses', res.data.expenses);
                 dispatch('sumOfExpenses');
             })
             .catch(error => console.log(error));
