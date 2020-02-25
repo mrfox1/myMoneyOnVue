@@ -80,7 +80,7 @@
                 this.$store.dispatch('createExpense', {
                     date: this.date,
                     sum: this.sum,
-                    category: this.category
+                    category_id: this.selectedCategory.id
                 });
                 this.sum = this.category = null;
                 this.formVisible = false;

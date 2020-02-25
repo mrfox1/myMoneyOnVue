@@ -42,10 +42,10 @@ const mutations = {
 
 const actions = {
     createProfit({commit}, profitData) {
-        commit('create', profitData);
-        store.dispatch('sumOfProfits');
         globalAxios.post('/incomes', profitData)
             .then(res => {
+                commit('create', res.data);
+                store.dispatch('sumOfProfits');
                 console.log(res);
             })
             .catch(error => console.log(error));
