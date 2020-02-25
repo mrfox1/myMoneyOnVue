@@ -10,7 +10,11 @@ const mutations = {
         if (state.categories === null) {
             state.categories = data;
         } else {
-            state.categories.push(data);
+            if (data.record_type == "Income") {
+                state.categories.categories.incomes_categories.push(data);
+            } else {
+                state.categories.categories.expenses_categories.push(data);
+            }
         }
     }
 };
@@ -19,7 +23,6 @@ const actions = {
     createCategory({commit, dispatch}, categoryData) {
         globalAxios.post('/categories', categoryData)
             .then(res => {
-                console.log(res);
                 commit('saveCategory', res.data);
             })
             .catch(error => console.log(error));
@@ -29,7 +32,6 @@ const actions = {
         globalAxios.get('/categories')
             .then(res => {
                 commit('saveCategory', res.data);
-                console.log(res.data);
             })
             .catch(error => console.log(error));
     }

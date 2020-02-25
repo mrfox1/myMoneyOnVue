@@ -43,7 +43,6 @@ const actions = {
     createExpense({commit, dispatch}, expenseData) {
         globalAxios.post('/expenses', expenseData)
             .then(res => {
-                console.log(res);
                 commit('create', res.data);
                 dispatch('sumOfExpenses')
             })
@@ -67,7 +66,7 @@ const actions = {
     getExpensesFromApi({commit, dispatch}) {
         globalAxios.get('/expenses')
             .then(res => {
-                commit('saveExpenses', res.data);
+                commit('saveExpenses', res.data.expenses);
                 dispatch('sumOfExpenses');
             })
             .catch(error => console.log(error));
